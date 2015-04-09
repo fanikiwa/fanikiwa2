@@ -18,6 +18,7 @@ import com.sp.fanikiwa.api.AccountEndpoint;
 import com.sp.fanikiwa.api.MemberEndpoint;
 import com.sp.fanikiwa.api.OfferEndpoint;
 import com.sp.fanikiwa.business.AcceptOfferComponent;
+import com.sp.fanikiwa.business.MakeOfferComponent;
 import com.sp.fanikiwa.business.RegistrationComponent;
 import com.sp.fanikiwa.business.WithdrawalComponent;
 import com.sp.fanikiwa.business.financialtransactions.TransactionFactory;
@@ -368,10 +369,9 @@ public class SMSProcessorComponent {
 		return MessageFormat
 				.format("Balance for [{0}]: {1}\nBook balance = {2}\nAvailable balance = {3}",
 
-				account.getAccountID(), 
-				account.getAccountName(),
-				account.getBookBalance(), 
-				account.getClearedBalance() - account.getLimit());
+				account.getAccountID(), account.getAccountName(),
+						account.getBookBalance(), account.getClearedBalance()
+								- account.getLimit());
 	}
 
 	private String ProcessStatementEnquiryMessage(
@@ -524,10 +524,12 @@ public class SMSProcessorComponent {
 			if (regmember != null) {
 				return MessageFormat
 						.format("Successfully Registered. Details\nMember Id {0}, Current Account Id {1}, Loan Account Id {2}, Investment Account Id {3}",
-								regmember.getMemberId().toString(), 
-								regmember.getCurrentAccount().getAccountID().toString(), 
-								regmember.getLoanAccount().getAccountID().toString(), 
-								regmember.getInvestmentAccount().getAccountID().toString());
+								regmember.getMemberId().toString(), regmember
+										.getCurrentAccount().getAccountID()
+										.toString(), regmember.getLoanAccount()
+										.getAccountID().toString(), regmember
+										.getInvestmentAccount().getAccountID()
+										.toString());
 			} else
 				return "Member registration was not successful";
 		} else {
@@ -562,7 +564,6 @@ public class SMSProcessorComponent {
 			return "Not authenticated";
 
 		RegistrationComponent rc = new RegistrationComponent();
-		OfferEndpoint mo = new OfferEndpoint();
 
 		Member member = rc.SelectMemberByPhone(message.SenderTelno);
 		if (member == null) {
@@ -583,7 +584,12 @@ public class SMSProcessorComponent {
 		offer.setExpiryDate(DateExtension.addMonths(offer.getCreatedDate(),
 				Config.GetInt("OFFEREXPIRYTIMESPANINMONTHS")));
 
-		mo.MakeOffer(offer);
+		try {
+			MakeOfferComponent mo = new MakeOfferComponent();
+			mo.MakeOffer(offer);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 		return "Offer successfully made";
 	}
 
@@ -594,7 +600,6 @@ public class SMSProcessorComponent {
 
 		String msg = "";
 		RegistrationComponent rc = new RegistrationComponent();
-		OfferEndpoint mo = new OfferEndpoint();
 
 		Member member = rc.SelectMemberByPhone(message.SenderTelno);
 		if (member == null) {
@@ -615,7 +620,12 @@ public class SMSProcessorComponent {
 		offer.setExpiryDate(DateExtension.addMonths(offer.getCreatedDate(),
 				Config.GetInt("OFFEREXPIRYTIMESPANINMONTHS")));
 
-		mo.MakeOffer(offer);
+		try {
+			MakeOfferComponent mo = new MakeOfferComponent();
+			mo.MakeOffer(offer);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 		return "Borrow offer successfully done";
 	}
 
@@ -779,16 +789,13 @@ public class SMSProcessorComponent {
 					"Sender Telno [{0}] is not registered. ",
 					message.SenderTelno));
 		}
-		 try
-		 {
-			 WithdrawalComponent wc = new WithdrawalComponent();
-			 msg = wc.MemberWithdraw(member, message.Amount);
-			 
-		 }
-		 catch (Exception we)
-		 {
-			 msg = we.getMessage();
-		 }
+		try {
+			WithdrawalComponent wc = new WithdrawalComponent();
+			msg = wc.MemberWithdraw(member, message.Amount);
+
+		} catch (Exception we) {
+			msg = we.getMessage();
+		}
 
 		return msg;
 	}

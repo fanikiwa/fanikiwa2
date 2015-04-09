@@ -27,14 +27,30 @@
   "ownerName" : "sp.com",
   "packagePath" : "fanikiwa.entity",
   "methods" : {
-    "offerendpoint.listBorrowOffers" : {
-      "path" : "ListBorrowOffers/{memberid}",
+    "offerendpoint.saveOffer" : {
+      "path" : "saveOffer",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.ListBorrowOffers",
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.saveOffer",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "offerendpoint.listMyLendOffers" : {
+      "path" : "ListMyLendOffers/{memberid}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.ListMyLendOffers",
       "request" : {
         "parameters" : {
           "memberid" : {
@@ -56,14 +72,46 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "offerendpoint.listMyLendOffers" : {
-      "path" : "ListMyLendOffers/{memberid}",
+    "offerendpoint.updateOffer" : {
+      "path" : "offer",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.updateOffer",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "offerendpoint.offerEndpoint.insertOffer" : {
+      "path" : "offer",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.ListMyLendOffers",
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.insertOffer",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "offerendpoint.listBorrowOffers" : {
+      "path" : "ListBorrowOffers/{memberid}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.ListBorrowOffers",
       "request" : {
         "parameters" : {
           "memberid" : {
@@ -110,43 +158,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "offerendpoint.getOfferByID" : {
-      "path" : "offer/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.getOfferByID",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "offerendpoint.updateOffer" : {
-      "path" : "offer",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.updateOffer",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "offerendpoint.removeOffer" : {
       "path" : "offer/{id}",
       "httpMethod" : "DELETE",
@@ -168,17 +179,47 @@
         "body" : "empty"
       }
     },
-    "offerendpoint.makeOffer" : {
-      "path" : "MakeOffer",
+    "offerendpoint.getOfferByID" : {
+      "path" : "offer/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.getOfferByID",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "offerendpoint.retrievePublicOffers" : {
+      "path" : "retrievePublicOffers",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.MakeOffer",
+      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.retrievePublicOffers",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "count" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -212,47 +253,22 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "offerendpoint.retrievePublicOffers" : {
-      "path" : "retrievePublicOffers",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.OfferEndpoint.retrievePublicOffers",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "count" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Offer" : {
-        "id" : "CollectionResponse_Offer",
+      "OfferModel" : {
+        "id" : "OfferModel",
         "type" : "object",
         "properties" : {
-          "items" : {
+          "offer" : {
+            "$ref" : "Offer"
+          },
+          "offerees" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Offer"
+              "$ref" : "Member"
             }
-          },
-          "nextPageToken" : {
-            "type" : "string"
           }
         }
       },
@@ -286,9 +302,6 @@
           "expiryDate" : {
             "type" : "string",
             "format" : "date-time"
-          },
-          "offerees" : {
-            "type" : "string"
           },
           "offerType" : {
             "type" : "string"
@@ -577,70 +590,34 @@
           }
         }
       },
-      "OfferDTO" : {
-        "id" : "OfferDTO",
+      "CollectionResponse_Offer" : {
+        "id" : "CollectionResponse_Offer",
         "type" : "object",
         "properties" : {
-          "description" : {
-            "type" : "string"
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Offer"
+            }
           },
-          "amount" : {
-            "type" : "number"
-          },
-          "term" : {
-            "type" : "integer"
-          },
-          "interest" : {
-            "type" : "number"
-          },
-          "publicOffer" : {
-            "type" : "boolean"
-          },
-          "createdDate" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "expiryDate" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "offerees" : {
-            "type" : "string"
-          },
-          "offerType" : {
-            "type" : "string"
-          },
-          "partialPay" : {
-            "type" : "boolean"
-          },
-          "status" : {
-            "type" : "string"
-          },
-          "email" : {
+          "nextPageToken" : {
             "type" : "string"
           }
         }
       }
     },
     "methods" : {
-      "com.sp.fanikiwa.api.OfferEndpoint.ListBorrowOffers" : {
+      "com.sp.fanikiwa.api.OfferEndpoint.saveOffer" : {
+        "request" : {
+          "$ref" : "OfferModel"
+        },
         "response" : {
-          "$ref" : "CollectionResponse_Offer"
+          "$ref" : "Offer"
         }
       },
       "com.sp.fanikiwa.api.OfferEndpoint.ListMyLendOffers" : {
         "response" : {
           "$ref" : "CollectionResponse_Offer"
-        }
-      },
-      "com.sp.fanikiwa.api.OfferEndpoint.listOffer" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Offer"
-        }
-      },
-      "com.sp.fanikiwa.api.OfferEndpoint.getOfferByID" : {
-        "response" : {
-          "$ref" : "Offer"
         }
       },
       "com.sp.fanikiwa.api.OfferEndpoint.updateOffer" : {
@@ -651,22 +628,37 @@
           "$ref" : "Offer"
         }
       },
-      "com.sp.fanikiwa.api.OfferEndpoint.removeOffer" : {
-      },
-      "com.sp.fanikiwa.api.OfferEndpoint.MakeOffer" : {
+      "com.sp.fanikiwa.api.OfferEndpoint.insertOffer" : {
         "request" : {
-          "$ref" : "OfferDTO"
+          "$ref" : "Offer"
         },
         "response" : {
           "$ref" : "Offer"
         }
       },
-      "com.sp.fanikiwa.api.OfferEndpoint.selectOffersByMember" : {
+      "com.sp.fanikiwa.api.OfferEndpoint.ListBorrowOffers" : {
         "response" : {
           "$ref" : "CollectionResponse_Offer"
         }
       },
+      "com.sp.fanikiwa.api.OfferEndpoint.listOffer" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Offer"
+        }
+      },
+      "com.sp.fanikiwa.api.OfferEndpoint.removeOffer" : {
+      },
+      "com.sp.fanikiwa.api.OfferEndpoint.getOfferByID" : {
+        "response" : {
+          "$ref" : "Offer"
+        }
+      },
       "com.sp.fanikiwa.api.OfferEndpoint.retrievePublicOffers" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Offer"
+        }
+      },
+      "com.sp.fanikiwa.api.OfferEndpoint.selectOffersByMember" : {
         "response" : {
           "$ref" : "CollectionResponse_Offer"
         }

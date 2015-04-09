@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://1-dot-fanikiwaweb.appspot.com/_ah/api",
-  "name" : "transactionendpoint",
+  "name" : "lendinggroupmemberendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
@@ -27,42 +27,17 @@
   "ownerName" : "sp.com",
   "packagePath" : "fanikiwa.entity",
   "methods" : {
-    "transactionendpoint.listTransaction" : {
-      "path" : "transaction",
+    "lendinggroupmemberendpoint.getLendinggroupmemberByID" : {
+      "path" : "lendinggroupmember/{groupId}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.listTransaction",
+      "rosyMethod" : "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.getLendinggroupmemberByID",
       "request" : {
         "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "count" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "transactionendpoint.getTransaction" : {
-      "path" : "transaction/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.getTransaction",
-      "request" : {
-        "parameters" : {
-          "id" : {
+          "groupId" : {
             "type" : "int64",
             "required" : true
           }
@@ -73,136 +48,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "transactionendpoint.transactionEndpoint.getStatement" : {
-      "path" : "GetStatement/{sdate}/{edate}",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.GetStatement",
-      "request" : {
-        "parameters" : {
-          "sdate" : {
-            "type" : "datetime",
-            "required" : true
-          },
-          "edate" : {
-            "type" : "datetime",
-            "required" : true
-          },
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "count" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "transactionendpoint.transactionEndpoint.getMiniStatement" : {
-      "path" : "GetMiniStatement",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.GetMiniStatement",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "count" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "transactionendpoint.insertTransaction" : {
-      "path" : "transaction",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.insertTransaction",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "transactionendpoint.transactionEndpoint.getTransactionsBeforeDate" : {
-      "path" : "GetTransactionsBeforeDate/{sdate}",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.GetTransactionsBeforeDate",
-      "request" : {
-        "parameters" : {
-          "sdate" : {
-            "type" : "datetime",
-            "required" : true
-          },
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "count" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "transactionendpoint.updateTransaction" : {
-      "path" : "transaction",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.updateTransaction",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "transactionendpoint.removeTransaction" : {
-      "path" : "transaction/{id}",
+    "lendinggroupmemberendpoint.removeLendinggroupmember" : {
+      "path" : "lendinggroupmember/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.removeTransaction",
+      "rosyMethod" : "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.removeLendinggroupmember",
       "request" : {
         "parameters" : {
           "id" : {
@@ -215,74 +68,185 @@
       "response" : {
         "body" : "empty"
       }
+    },
+    "lendinggroupmemberendpoint.updateLendinggroupmember" : {
+      "path" : "lendinggroupmember",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.updateLendinggroupmember",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "lendinggroupmemberendpoint.selectgroupMembers" : {
+      "path" : "selectgroupMembers/{groupname}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.selectgroupMembers",
+      "request" : {
+        "parameters" : {
+          "groupname" : {
+            "type" : "string",
+            "required" : true
+          },
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "count" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "lendinggroupmemberendpoint.lendingGroupMemberEndpoint.insertLendinggroupmember" : {
+      "path" : "lendinggroupmember",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.insertLendinggroupmember",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "lendinggroupmemberendpoint.listLendinggroupmember" : {
+      "path" : "lendinggroupmember",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.listLendinggroupmember",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "count" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Transaction" : {
-        "id" : "CollectionResponse_Transaction",
+      "Lendinggroupmember" : {
+        "id" : "Lendinggroupmember",
         "type" : "object",
         "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Transaction"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Transaction" : {
-        "id" : "Transaction",
-        "type" : "object",
-        "properties" : {
-          "transactionID" : {
+          "id" : {
             "type" : "string",
             "format" : "int64"
           },
-          "amount" : {
-            "type" : "number"
-          },
-          "authorizer" : {
+          "groupName" : {
             "type" : "string"
           },
-          "contraReference" : {
+          "idType" : {
             "type" : "string"
           },
-          "forcePostFlag" : {
-            "type" : "boolean"
+          "member" : {
+            "$ref" : "Member"
           },
-          "narrative" : {
-            "type" : "string"
+          "group" : {
+            "$ref" : "Lendinggroup"
+          }
+        }
+      },
+      "Member" : {
+        "id" : "Member",
+        "type" : "object",
+        "properties" : {
+          "memberId" : {
+            "type" : "string",
+            "format" : "int64"
           },
-          "postDate" : {
+          "dateActivated" : {
             "type" : "string",
             "format" : "date-time"
           },
-          "recordDate" : {
+          "dateJoined" : {
             "type" : "string",
             "format" : "date-time"
           },
-          "reference" : {
-            "type" : "string"
-          },
-          "statementFlag" : {
-            "type" : "string"
-          },
-          "userID" : {
-            "type" : "string"
-          },
-          "valueDate" : {
+          "dateOfBirth" : {
             "type" : "string",
             "format" : "date-time"
           },
-          "account" : {
+          "email" : {
+            "type" : "string"
+          },
+          "gender" : {
+            "type" : "string"
+          },
+          "informBy" : {
+            "type" : "string"
+          },
+          "maxRecordsToDisplay" : {
+            "type" : "integer"
+          },
+          "nationalID" : {
+            "type" : "string"
+          },
+          "otherNames" : {
+            "type" : "string"
+          },
+          "photo" : {
+            "type" : "string"
+          },
+          "pwd" : {
+            "type" : "string"
+          },
+          "refferedBy" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "surname" : {
+            "type" : "string"
+          },
+          "telephone" : {
+            "type" : "string"
+          },
+          "investmentAccount" : {
             "$ref" : "Account"
           },
-          "transactionType" : {
-            "$ref" : "TransactionType"
+          "loanAccount" : {
+            "$ref" : "Account"
+          },
+          "currentAccount" : {
+            "$ref" : "Account"
+          },
+          "customer" : {
+            "$ref" : "Customer"
           }
         }
       },
@@ -489,185 +453,81 @@
           }
         }
       },
-      "TransactionType" : {
-        "id" : "TransactionType",
+      "Lendinggroup" : {
+        "id" : "Lendinggroup",
         "type" : "object",
         "properties" : {
-          "transactionTypeID" : {
+          "groupName" : {
+            "type" : "string"
+          },
+          "createdOn" : {
             "type" : "string",
-            "format" : "int64"
+            "format" : "date-time"
           },
-          "absolute" : {
-            "type" : "boolean"
+          "creator" : {
+            "$ref" : "Member"
           },
-          "amountExpression" : {
-            "type" : "string"
-          },
-          "canSuspend" : {
-            "type" : "boolean"
-          },
-          "chargeCommission" : {
-            "type" : "boolean"
-          },
-          "chargeCommissionToTransaction" : {
-            "type" : "boolean"
-          },
-          "chargeWho" : {
-            "type" : "string"
-          },
-          "commComputationMethod" : {
-            "type" : "string"
-          },
-          "commissionAmount" : {
-            "type" : "number"
-          },
-          "commissionAmountExpression" : {
-            "type" : "string"
-          },
-          "commissionContraNarrative" : {
-            "type" : "string"
-          },
-          "commissionCrAccount" : {
+          "lastModified" : {
             "type" : "string",
-            "format" : "int64"
+            "format" : "date-time"
           },
-          "commissionDrAccount" : {
-            "type" : "string",
-            "format" : "int64"
+          "parentGroup" : {
+            "$ref" : "Lendinggroup"
           },
-          "commissionDrAnotherAccount" : {
-            "type" : "boolean"
+          "parentGroupId" : {
+            "$ref" : "Lendinggroup"
+          }
+        }
+      },
+      "CollectionResponse_Lendinggroupmember" : {
+        "id" : "CollectionResponse_Lendinggroupmember",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Lendinggroupmember"
+            }
           },
-          "commissionMainNarrative" : {
+          "nextPageToken" : {
             "type" : "string"
-          },
-          "commissionNarrativeFlag" : {
-            "type" : "integer"
-          },
-          "commissionTransactionType" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "crCommCalcMethod" : {
-            "type" : "string"
-          },
-          "debitCredit" : {
-            "type" : "string"
-          },
-          "defaultAmount" : {
-            "type" : "number"
-          },
-          "defaultContraAccount" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "defaultContraNarrative" : {
-            "type" : "string"
-          },
-          "defaultMainAccount" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "defaultMainNarrative" : {
-            "type" : "string"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "dialogFlag" : {
-            "type" : "integer"
-          },
-          "drCommCalcMethod" : {
-            "type" : "string"
-          },
-          "forcePost" : {
-            "type" : "boolean"
-          },
-          "narrativeFlag" : {
-            "type" : "integer"
-          },
-          "shortCode" : {
-            "type" : "string"
-          },
-          "statFlag" : {
-            "type" : "string"
-          },
-          "suspenseCrAccount" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "suspenseDrAccount" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "tieredTableId" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "txnClass" : {
-            "type" : "integer"
-          },
-          "txnTypeView" : {
-            "type" : "integer"
-          },
-          "valueDateOffset" : {
-            "type" : "integer"
           }
         }
       }
     },
     "methods" : {
-      "com.sp.fanikiwa.api.TransactionEndpoint.listTransaction" : {
+      "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.getLendinggroupmemberByID" : {
         "response" : {
-          "$ref" : "CollectionResponse_Transaction"
+          "$ref" : "Lendinggroupmember"
         }
       },
-      "com.sp.fanikiwa.api.TransactionEndpoint.getTransaction" : {
-        "response" : {
-          "$ref" : "Transaction"
-        }
+      "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.removeLendinggroupmember" : {
       },
-      "com.sp.fanikiwa.api.TransactionEndpoint.GetStatement" : {
+      "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.updateLendinggroupmember" : {
         "request" : {
-          "$ref" : "Account"
+          "$ref" : "Lendinggroupmember"
         },
         "response" : {
-          "$ref" : "CollectionResponse_Transaction"
+          "$ref" : "Lendinggroupmember"
         }
       },
-      "com.sp.fanikiwa.api.TransactionEndpoint.GetMiniStatement" : {
+      "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.selectgroupMembers" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Lendinggroupmember"
+        }
+      },
+      "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.insertLendinggroupmember" : {
         "request" : {
-          "$ref" : "Account"
+          "$ref" : "Lendinggroupmember"
         },
         "response" : {
-          "$ref" : "CollectionResponse_Transaction"
+          "$ref" : "Lendinggroupmember"
         }
       },
-      "com.sp.fanikiwa.api.TransactionEndpoint.insertTransaction" : {
-        "request" : {
-          "$ref" : "Transaction"
-        },
+      "com.sp.fanikiwa.api.LendingGroupMemberEndpoint.listLendinggroupmember" : {
         "response" : {
-          "$ref" : "Transaction"
+          "$ref" : "CollectionResponse_Lendinggroupmember"
         }
-      },
-      "com.sp.fanikiwa.api.TransactionEndpoint.GetTransactionsBeforeDate" : {
-        "request" : {
-          "$ref" : "Account"
-        },
-        "response" : {
-          "$ref" : "CollectionResponse_Transaction"
-        }
-      },
-      "com.sp.fanikiwa.api.TransactionEndpoint.updateTransaction" : {
-        "request" : {
-          "$ref" : "Transaction"
-        },
-        "response" : {
-          "$ref" : "Transaction"
-        }
-      },
-      "com.sp.fanikiwa.api.TransactionEndpoint.removeTransaction" : {
       }
     }
   }

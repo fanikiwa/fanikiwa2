@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.sp.fanikiwa.business.SMS.FanikiwaMessage;
 import com.sp.fanikiwa.business.SMS.FanikiwaMessageFactory;
+import com.sp.fanikiwa.business.SMS.MpesaDepositMessage;
 import com.sp.fanikiwa.business.SMS.SMSProcessorComponent;
 import com.sp.fanikiwa.business.messaging.SMSmessage;
 import com.sp.utils.HttpUtil;
@@ -73,10 +74,12 @@ public class SMSReceiveServlet extends HttpServlet {
 		}
 
 		// 2. initiate jackson mapper
-		ObjectMapper mapper = new ObjectMapper();
+//		ObjectMapper mapper = new ObjectMapper();
+		Gson gson = new Gson();
+		SMSmessage msg = gson.fromJson(br, SMSmessage.class);
 
 		// 3. Convert received JSON to Article
-		SMSmessage msg = mapper.readValue(json, SMSmessage.class);
+//		SMSmessage msg = mapper.readValue(json, SMSmessage.class);
 		msg.setAddressTo(FANIKIWATELNO);
 		msg.setMessageDate(new Date());
 

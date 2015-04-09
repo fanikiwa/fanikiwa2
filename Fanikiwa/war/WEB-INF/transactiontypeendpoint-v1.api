@@ -48,26 +48,17 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "transactiontypeendpoint.listTransactionType" : {
+    "transactiontypeendpoint.updateTransactionType" : {
       "path" : "transactiontype",
-      "httpMethod" : "GET",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionTypeEndpoint.listTransactionType",
+      "rosyMethod" : "com.sp.fanikiwa.api.TransactionTypeEndpoint.updateTransactionType",
       "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "count" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -89,17 +80,26 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "transactiontypeendpoint.updateTransactionType" : {
+    "transactiontypeendpoint.listTransactionType" : {
       "path" : "transactiontype",
-      "httpMethod" : "PUT",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionTypeEndpoint.updateTransactionType",
+      "rosyMethod" : "com.sp.fanikiwa.api.TransactionTypeEndpoint.listTransactionType",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "count" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -277,9 +277,12 @@
           "$ref" : "TransactionType"
         }
       },
-      "com.sp.fanikiwa.api.TransactionTypeEndpoint.listTransactionType" : {
+      "com.sp.fanikiwa.api.TransactionTypeEndpoint.updateTransactionType" : {
+        "request" : {
+          "$ref" : "TransactionType"
+        },
         "response" : {
-          "$ref" : "CollectionResponse_TransactionType"
+          "$ref" : "TransactionType"
         }
       },
       "com.sp.fanikiwa.api.TransactionTypeEndpoint.insertTransactionType" : {
@@ -290,12 +293,9 @@
           "$ref" : "TransactionType"
         }
       },
-      "com.sp.fanikiwa.api.TransactionTypeEndpoint.updateTransactionType" : {
-        "request" : {
-          "$ref" : "TransactionType"
-        },
+      "com.sp.fanikiwa.api.TransactionTypeEndpoint.listTransactionType" : {
         "response" : {
-          "$ref" : "TransactionType"
+          "$ref" : "CollectionResponse_TransactionType"
         }
       },
       "com.sp.fanikiwa.api.TransactionTypeEndpoint.removeTransactionType" : {

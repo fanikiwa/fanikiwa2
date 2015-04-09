@@ -8,35 +8,35 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Mailinggroup {
+public class Lendinggroup {
 
 	@Id
-	Long groupId;
+	String groupName;
  
 	private Date createdOn;
  
-	private int creator;
+	@Index private Ref<Member> creator;
  
 	private Date lastModified;
  
-	private int parentGroupId;
+	@Index private Ref<Lendinggroup> parentGroup;
  
-	private String shortCode;
 
-	public Mailinggroup() {
+	public Lendinggroup() {
 	}
 
-	public Long getGroupId() {
-		return this.groupId;
+	public String getGroupName() {
+		return this.groupName;
 	}
 
-	public void setGroupId(Long groupId) {
-		this.groupId = groupId;
+	public void setGroupName(String groupname) {
+		this.groupName = groupname;
 	}
 
 	public Date getCreatedOn() {
@@ -47,12 +47,12 @@ public class Mailinggroup {
 		this.createdOn = createdOn;
 	}
 
-	public int getCreator() {
-		return this.creator;
+	public Member getCreator() {
+		return this.creator.get();
 	}
 
-	public void setCreator(int creator) {
-		this.creator = creator;
+	public void setCreator(Member creator) {
+		this.creator = Ref.create(creator);
 	}
 
 	public Date getLastModified() {
@@ -63,20 +63,14 @@ public class Mailinggroup {
 		this.lastModified = lastModified;
 	}
 
-	public int getParentGroupId() {
-		return this.parentGroupId;
+	public Lendinggroup getParentGroup() {
+		return this.parentGroup.get();
 	}
 
-	public void setParentGroupId(int parentGroupId) {
-		this.parentGroupId = parentGroupId;
+	public void setParentGroupId(Lendinggroup parentGroup) {
+		this.parentGroup = Ref.create(parentGroup);
 	}
 
-	public String getShortCode() {
-		return this.shortCode;
-	}
 
-	public void setShortCode(String shortCode) {
-		this.shortCode = shortCode;
-	}
 
 }

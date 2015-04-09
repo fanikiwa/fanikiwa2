@@ -27,22 +27,6 @@
   "ownerName" : "sp.com",
   "packagePath" : "fanikiwa.entity",
   "methods" : {
-    "coadetendpoint.insertCoadet" : {
-      "path" : "coadet",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.CoadetEndpoint.insertCoadet",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "coadetendpoint.getCoadetByID" : {
       "path" : "coadet/{id}",
       "httpMethod" : "GET",
@@ -59,6 +43,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "coadetendpoint.updateCoadet" : {
+      "path" : "coadet",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.CoadetEndpoint.updateCoadet",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -85,6 +85,22 @@
         "body" : "empty"
       }
     },
+    "coadetendpoint.insertCoadet" : {
+      "path" : "coadet",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.CoadetEndpoint.insertCoadet",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "coadetendpoint.listCoadet" : {
       "path" : "coadet",
       "httpMethod" : "GET",
@@ -105,22 +121,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "coadetendpoint.updateCoadet" : {
-      "path" : "coadet",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.CoadetEndpoint.updateCoadet",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -184,24 +184,9 @@
       }
     },
     "methods" : {
-      "com.sp.fanikiwa.api.CoadetEndpoint.insertCoadet" : {
-        "request" : {
-          "$ref" : "Coadet"
-        },
-        "response" : {
-          "$ref" : "Coadet"
-        }
-      },
       "com.sp.fanikiwa.api.CoadetEndpoint.getCoadetByID" : {
         "response" : {
           "$ref" : "Coadet"
-        }
-      },
-      "com.sp.fanikiwa.api.CoadetEndpoint.removeCoadet" : {
-      },
-      "com.sp.fanikiwa.api.CoadetEndpoint.listCoadet" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Coadet"
         }
       },
       "com.sp.fanikiwa.api.CoadetEndpoint.updateCoadet" : {
@@ -210,6 +195,21 @@
         },
         "response" : {
           "$ref" : "Coadet"
+        }
+      },
+      "com.sp.fanikiwa.api.CoadetEndpoint.removeCoadet" : {
+      },
+      "com.sp.fanikiwa.api.CoadetEndpoint.insertCoadet" : {
+        "request" : {
+          "$ref" : "Coadet"
+        },
+        "response" : {
+          "$ref" : "Coadet"
+        }
+      },
+      "com.sp.fanikiwa.api.CoadetEndpoint.listCoadet" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Coadet"
         }
       }
     }

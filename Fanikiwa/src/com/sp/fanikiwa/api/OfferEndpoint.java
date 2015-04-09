@@ -12,7 +12,10 @@ import com.google.api.server.spi.response.ForbiddenException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
+import com.googlecode.objectify.VoidWork;
+import com.googlecode.objectify.Work;
 import com.googlecode.objectify.cmd.Query;
+import com.sp.fanikiwa.Enums.PostingCheckFlag;
 import com.sp.fanikiwa.entity.Account;
 import com.sp.fanikiwa.entity.Member;
 import com.sp.fanikiwa.entity.Offer;
@@ -20,6 +23,7 @@ import com.sp.fanikiwa.entity.OfferDTO;
 import com.sp.fanikiwa.entity.OfferModel;
 import com.sp.fanikiwa.entity.OfferReceipient;
 import com.sp.fanikiwa.entity.OfferStatus;
+import com.sp.fanikiwa.entity.Transaction;
 import com.sp.utils.GLUtil;
 
 import java.util.ArrayList;
@@ -31,13 +35,7 @@ import javax.inject.Named;
 @Api(name = "offerendpoint", namespace = @ApiNamespace(ownerDomain = "sp.com", ownerName = "sp.com", packagePath = "fanikiwa.entity"))
 public class OfferEndpoint {
 
-
-	private Member SearchMemberByEmail(String email) {
-		MemberEndpoint mep = new MemberEndpoint();
-		Member member = mep.GetMemberByEmail(email);
-		return member;
-	}
-
+	final int MAXRETRIES = 3;
 	public OfferEndpoint() {
 
 	}
@@ -187,6 +185,7 @@ public class OfferEndpoint {
 		ofy().save().entities(Offer).now();
 		return Offer;
 	}
+	
 
 	/**
 	 * This method removes the entity with primary key id. It uses HTTP DELETE
@@ -220,7 +219,7 @@ public class OfferEndpoint {
 	 * @throws ConflictException
 	 */
 	//@ApiMethod(name = "insertOffer")
-	private Offer insertOffer(Offer offer) throws NotFoundException,
+	public Offer insertOffer(Offer offer) throws NotFoundException,
 			ConflictException {
 		if (offer.getId() != null) {
 			if (findRecord(offer.getId()) != null) {
@@ -230,70 +229,45 @@ public class OfferEndpoint {
 		ofy().save().entities(offer).now();
 		return offer;
 	}
-
-	private Offer createOfferDTO(OfferDTO offerDto) throws NotFoundException,
-			ConflictException {
-		Offer o = new Offer();
-		o.setAmount(offerDto.getAmount());
-		o.setCreatedDate(offerDto.getCreatedDate());
-		o.setDescription(offerDto.getDescription());
-		o.setExpiryDate(offerDto.getExpiryDate());
-		o.setInterest(offerDto.getInterest());
-		
-		Member member = SearchMemberByEmail(offerDto.getEmail());
-		
-		o.setMember(member);
-		o.setOfferees(offerDto.getOfferees());
-		o.setOfferType(offerDto.getOfferType());
-		o.setPartialPay(offerDto.isPartialPay());
-		o.setPublicOffer(offerDto.isPublicOffer());
-		o.setStatus(offerDto.getStatus());
-		o.setTerm(offerDto.getTerm());
-		return insertOffer(o);
-	}
-
-	@ApiMethod(name = "MakeOffer")
-	public Offer MakeOffer( OfferDTO offerDto) throws NotFoundException,
-			ConflictException, ForbiddenException {
-		if(offerDto.getOfferType().toUpperCase().equals("L"))
-		{
-			return MakeLendOffer( offerDto);
-		}
-		else
-		{
-			return MakeBorrowOffer( offerDto);
-		}
+	@ApiMethod(name = "saveOffer")
+	public Offer saveOffer(final OfferModel offerModel) {
+		Offer offer = ofy().transactNew(MAXRETRIES,new Work<Offer>() {
+			public Offer run() {
+				Offer offer=null;
+				try {
+					//This work must be Idempotent
+					offer= insertOffer(offerModel.getOffer());
+					for(Member m : offerModel.getOfferees())
+					{
+						OfferReceipient or = new OfferReceipient( m,  offer);
+						OfferReceipientEndpoint oep = new OfferReceipientEndpoint();
+						oep.insertOfferReceipient(or);
+					}
+					return offer;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return offer;
+			}
+		});
+		return offer;
 	}
 	
-	private Offer MakeBorrowOffer(OfferDTO offerModel) throws NotFoundException, ConflictException
-    {
-		return  createOfferDTO(offerModel);
-    }
-	private Offer MakeLendOffer(OfferDTO offerModel) throws ForbiddenException, NotFoundException, ConflictException
-    {
-        // Step 1 - Block funds.
-        Member member = SearchMemberByEmail(offerModel.getEmail());
-
-        // calls GLs funds block service.
-        AccountEndpoint sPostingClient = new AccountEndpoint();
-        if (GLUtil.GetAvailableBalance(member.getCurrentAccount()) < offerModel.getAmount())
-            throw new ForbiddenException("Insufficient funds");
-
-        //BlockFunds function checks all account status before the actual block
-        sPostingClient.BlockFunds(member.getCurrentAccount(), offerModel.getAmount());
-
-
-        // Step 2 - Calling Create on Offer.
-
-        return  createOfferDTO(offerModel);
-    }
+//	Thing th = ofy().transact(new Work<Thing>() {
+//	    public Thing run() {
+//	        Thing thing = ofy().load().key(thingKey).now();
+//	        thing.modify();
+//	        ofy().save().entity(thing);
+//	        return thing;
+//	    }
+//	});
 	
-
+	
 	private Member SearchMember(Long MemberId) {
 		MemberEndpoint mep = new MemberEndpoint();
 		Member member = mep.getMemberByID(MemberId);
 		return member;
 	}
-
 
 }
