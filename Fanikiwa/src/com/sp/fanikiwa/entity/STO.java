@@ -10,93 +10,35 @@ import com.googlecode.objectify.annotation.Index;
 public class STO {
 
 	@Id
-	Long id;
-
- 
-	private double amountDefaulted;
-
- 
-	private double amountPaid;
-
- 
-	private boolean chargeCommFlag;
-
- 
-	private short chargeWho;
-
- 
-	private short commFreqFlag;
-
- 
-	private Long commissionAccount;
-
- 
-	private double commissionAmount;
-
- 
-	private boolean commissionPaidFlag;
-
- 
-	private short commSourceFlag;
-
- 
-	private Long crAccount;
-
- 
-	private Date createDate;
-
- 
-	private Long crTxnType;
-
- 
-	private Long drAccount;
-
- 
-	private Long drTxnType;
-
- 
-	private Date endDate;
-
- 
-	private String interval;
-
- 
-	private int limitFlag;
-
- 
-	private int feesFlag;
-
- 
-	private Long loanId;
-
- 
-	private Date nextPayDate;
-
- 
+	Long id; 
+	private double amountDefaulted; 
+	private double amountPaid; 
+	private boolean chargeCommFlag; 
+	private short chargeWho; 
+	private short commFreqFlag; 
+	private Long commissionAccount; 
+	private double commissionAmount; 
+	private boolean commissionPaidFlag; 
+	private short commSourceFlag; 
+	private Long crAccount; 
+	private Date createDate; 
+	private Long crTxnType; 
+	private Long drAccount; 
+	private Long drTxnType; 
+	private Date endDate; 
+	private String interval; 
+	private int limitFlag; 
+	private int feesFlag; 
+	private Long loanId; 
+	private Date nextPayDate; 
 	private int noOfDefaults;
-
- 
-	private int noOfPayments;
-
- 
-	private int noOfPaymentsMade;
-
- 
-	private boolean partialPay;
-
- 
-	private double payAmount;
-
- 
-	private Date startDate;
-
- 
-	private int STOAccType;
-
- 
-	private int STOType;
-
- 
+	private int noOfPayments; 
+	private int noOfPaymentsMade; 
+	private boolean partialPay; 
+	private double payAmount; 
+	private Date startDate; 
+	private int STOAccType; 
+	private int STOType; 
 	private double totalToPay;
 
 	public STO() {

@@ -102,6 +102,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "userprofileendpoint.insertUserprofile" : {
+      "path" : "userprofile",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.UserprofileEndpoint.insertUserprofile",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "userprofileendpoint.getUserprofileByUserID" : {
       "path" : "userprofile/{id}",
       "httpMethod" : "GET",
@@ -159,22 +175,6 @@
       "response" : {
         "body" : "empty"
       }
-    },
-    "userprofileendpoint.insertUserprofile" : {
-      "path" : "userprofile",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.UserprofileEndpoint.insertUserprofile",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
@@ -230,6 +230,14 @@
           "$ref" : "Userprofile"
         }
       },
+      "com.sp.fanikiwa.api.UserprofileEndpoint.insertUserprofile" : {
+        "request" : {
+          "$ref" : "Userprofile"
+        },
+        "response" : {
+          "$ref" : "Userprofile"
+        }
+      },
       "com.sp.fanikiwa.api.UserprofileEndpoint.getUserprofileByUserID" : {
         "response" : {
           "$ref" : "Userprofile"
@@ -244,14 +252,6 @@
         }
       },
       "com.sp.fanikiwa.api.UserprofileEndpoint.removeUserprofile" : {
-      },
-      "com.sp.fanikiwa.api.UserprofileEndpoint.insertUserprofile" : {
-        "request" : {
-          "$ref" : "Userprofile"
-        },
-        "response" : {
-          "$ref" : "Userprofile"
-        }
       }
     }
   }

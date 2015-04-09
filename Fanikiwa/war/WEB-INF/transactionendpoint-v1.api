@@ -27,14 +27,14 @@
   "ownerName" : "sp.com",
   "packagePath" : "fanikiwa.entity",
   "methods" : {
-    "transactionendpoint.listTransaction" : {
-      "path" : "transaction",
-      "httpMethod" : "GET",
+    "transactionendpoint.transactionEndpoint.getMiniStatement" : {
+      "path" : "GetMiniStatement",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.listTransaction",
+      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.GetMiniStatement",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -46,7 +46,8 @@
             "required" : false
           }
         },
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -86,14 +87,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "transactionendpoint.transactionEndpoint.getMiniStatement" : {
-      "path" : "GetMiniStatement",
-      "httpMethod" : "POST",
+    "transactionendpoint.listTransaction" : {
+      "path" : "transaction",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.GetMiniStatement",
+      "rosyMethod" : "com.sp.fanikiwa.api.TransactionEndpoint.listTransaction",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -105,8 +106,7 @@
             "required" : false
           }
         },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -219,73 +219,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Transaction" : {
-        "id" : "CollectionResponse_Transaction",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Transaction"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Transaction" : {
-        "id" : "Transaction",
-        "type" : "object",
-        "properties" : {
-          "transactionID" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "amount" : {
-            "type" : "number"
-          },
-          "authorizer" : {
-            "type" : "string"
-          },
-          "contraReference" : {
-            "type" : "string"
-          },
-          "forcePostFlag" : {
-            "type" : "boolean"
-          },
-          "narrative" : {
-            "type" : "string"
-          },
-          "postDate" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "recordDate" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "reference" : {
-            "type" : "string"
-          },
-          "statementFlag" : {
-            "type" : "string"
-          },
-          "userID" : {
-            "type" : "string"
-          },
-          "valueDate" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "account" : {
-            "$ref" : "Account"
-          },
-          "transactionType" : {
-            "$ref" : "TransactionType"
-          }
-        }
-      },
       "Account" : {
         "id" : "Account",
         "type" : "object",
@@ -489,6 +422,73 @@
           }
         }
       },
+      "CollectionResponse_Transaction" : {
+        "id" : "CollectionResponse_Transaction",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Transaction"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Transaction" : {
+        "id" : "Transaction",
+        "type" : "object",
+        "properties" : {
+          "transactionID" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "amount" : {
+            "type" : "number"
+          },
+          "authorizer" : {
+            "type" : "string"
+          },
+          "contraReference" : {
+            "type" : "string"
+          },
+          "forcePostFlag" : {
+            "type" : "boolean"
+          },
+          "narrative" : {
+            "type" : "string"
+          },
+          "postDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "recordDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "reference" : {
+            "type" : "string"
+          },
+          "statementFlag" : {
+            "type" : "string"
+          },
+          "userID" : {
+            "type" : "string"
+          },
+          "valueDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "account" : {
+            "$ref" : "Account"
+          },
+          "transactionType" : {
+            "$ref" : "TransactionType"
+          }
+        }
+      },
       "TransactionType" : {
         "id" : "TransactionType",
         "type" : "object",
@@ -617,7 +617,10 @@
       }
     },
     "methods" : {
-      "com.sp.fanikiwa.api.TransactionEndpoint.listTransaction" : {
+      "com.sp.fanikiwa.api.TransactionEndpoint.GetMiniStatement" : {
+        "request" : {
+          "$ref" : "Account"
+        },
         "response" : {
           "$ref" : "CollectionResponse_Transaction"
         }
@@ -630,10 +633,7 @@
           "$ref" : "CollectionResponse_Transaction"
         }
       },
-      "com.sp.fanikiwa.api.TransactionEndpoint.GetMiniStatement" : {
-        "request" : {
-          "$ref" : "Account"
-        },
+      "com.sp.fanikiwa.api.TransactionEndpoint.listTransaction" : {
         "response" : {
           "$ref" : "CollectionResponse_Transaction"
         }
