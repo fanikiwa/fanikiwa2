@@ -17,5 +17,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/eclipse-standard-luna-R-win32-x86_64/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.9.18/appengine-java-sdk-1.9.18/lib/testing/appengine-testing.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Tools/jackson-databind-2.5.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Tools/jackson-core-2.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Tools/gson-2.3.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

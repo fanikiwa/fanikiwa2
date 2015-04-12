@@ -1,6 +1,7 @@
 package com.sp.fanikiwa.entity;
 
  
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -11,80 +12,40 @@ public class OfferReceipient {
 	@Id
 	Long offerReceipientId;
 
- 
-	private String idType;
-
- 
-	private String mailingGroup;
-
- 
-	private String memberEmail;
-
- 
-	private Long memberId;
-
- 
-	private String memberTelno;
- 
-	private int offerId;
+	@Index private Ref<Member> member;
+	@Index private Ref<Offer> offer;
 
 	public OfferReceipient() {
 	}
-
+	public OfferReceipient(Member m, Offer o) {
+		setMember(m);
+		setOffer(o);
+	}
+	
 	public Long getOfferReceipientId() {
-		return this.offerReceipientId;
+		return offerReceipientId;
 	}
 
 	public void setOfferReceipientId(Long offerReceipientId) {
 		this.offerReceipientId = offerReceipientId;
 	}
 
-	public String getIdType() {
-		return this.idType;
+	public Member getMember() {
+		return member.get();
 	}
 
-	public void setIdType(String idType) {
-		this.idType = idType;
+	public void setMember(Member member) {
+		this.member = Ref.create(member);
 	}
 
-	public String getMailingGroup() {
-		return this.mailingGroup;
+	public Offer getOffer() {
+		return offer.get();
 	}
 
-	public void setMailingGroup(String mailingGroup) {
-		this.mailingGroup = mailingGroup;
+	public void setOffer(Offer offer) {
+		this.offer = Ref.create(offer);
 	}
 
-	public String getMemberEmail() {
-		return this.memberEmail;
-	}
 
-	public void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
-	}
-
-	public Long getMemberId() {
-		return this.memberId;
-	}
-
-	public void setMemberId(Long memberId) {
-		this.memberId = memberId;
-	}
-
-	public String getMemberTelno() {
-		return this.memberTelno;
-	}
-
-	public void setMemberTelno(String memberTelno) {
-		this.memberTelno = memberTelno;
-	}
-
-	public int getOfferId() {
-		return this.offerId;
-	}
-
-	public void setOfferId(int offerId) {
-		this.offerId = offerId;
-	}
 
 }

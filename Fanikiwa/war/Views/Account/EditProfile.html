@@ -1,5 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿
-<!DOCTYPE html>
+﻿﻿﻿<!DOCTYPE html>
 
 <html lang="en">
 
@@ -307,28 +306,28 @@
 						<div class="pad">
 
 							<div>
-								<label for="txtEmail">Email</label> <input id="txtDescription"
-									placeholder="Email" autofocus="autofocus" type="text"></input>
+								<label for="txtEmail">Email</label> <input id="txtEmail"
+							 autocomplete="autocomplete" placeholder="Email" autofocus="autofocus" type="text"></input>
 							</div>
 
 							<div>
 								<label for="txtSurname">Surname</label> <input id="txtSurname"
-									placeholder="Surname" type="text"></input>
+									autocomplete="autocomplete" placeholder="Surname" type="text"></input>
 							</div>
 
 							<div>
 								<label for="txtOtherNames">OtherNames</label> <input
-									id="txtOtherNames" placeholder="OtherNames" type="text"></input>
+								autocomplete="autocomplete" id="txtOtherNames" placeholder="OtherNames" type="text"></input>
 							</div>
 
 							<div>
 								<label for="txtTelephone">Telephone</label> <input
-									id="txtTelephone" placeholder="Telephone" type="tel"></input>
+								autocomplete="autocomplete" id="txtTelephone" placeholder="Telephone" type="tel"></input>
 							</div>
 
 							<div>
 								<label for="txtNationalID">NationalID</label> <input
-									id="txtNationalID" placeholder="NationalID" type="text"></input>
+								autocomplete="autocomplete" id="txtNationalID" placeholder="NationalID" type="text"></input>
 							</div>
 
 
@@ -340,19 +339,18 @@
 
 							<div>
 								<label for="dtpDateOfBirth">Date Of Birth</label> <input
-									id="dtpDateOfBirth" placeholder="Term" type="date"></input>
+									id="dtpDateOfBirth" placeholder="Date Of Birth" type="date"></input>
 							</div>
 
 							<div>
 								<label for="txtRefferedBy">RefferedBy</label> <input
-									id="txtRefferedBy" placeholder="RefferedBy" type="text"></input>
+									id="txtRefferedBy" placeholder="RefferedBy" type="number" min="0"></input>
 							</div>
 
 
 							<div>
 								<label for="txtMaxRecordsToDisplay">MaxRecordsToDisplay</label>
-								<input id="txtMaxRecordsToDisplay"
-									placeholder="MaxRecordsToDisplay" type="text"></input>
+								<input id="txtMaxRecordsToDisplay" placeholder="MaxRecordsToDisplay" type="number" min="0"></input>
 							</div>
 
 							<div>
@@ -366,8 +364,8 @@
 							<div>
 								<label for="cboInformBy">InformBy</label> <select
 									name="InformBy" id="cboInformBy">
-									<option value="E">Email</option>
-									<option value="S">Sms</option>
+									<option value="Email">Email</option>
+									<option value="Sms">Sms</option>
 								</select>
 							</div>
 
@@ -375,8 +373,11 @@
 						</div>
 					</article>
 
-					<input type="submit" value="Update" id="btnUpdateProfileForm"
-						style="float: left; clear: both" />
+					<div style="float: left; clear: both">
+					<input type="submit" value="Update" id="btnUpdate"
+						style="float: left; clear: both" /> <input type="submit"
+						value="Clear" id="btnClear" onclick="Clear()" />
+				</div>
 
 				</fieldset>
 
@@ -429,21 +430,30 @@
  
 		 // Get loggedin user from the local storage
 		 $('#lnkloggedinuser').text(localStorage.getItem('loggedinuser'));
-     
-		// var ROOT ='https://1-dot-fanikiwaweb.appspot.com/_ah/api';
-		  var ROOT ='http://localhost:8888/_ah/api';   
-	     function init() {
-	      
+
+		 	var errormsg='';
+		 	errormsg +=   '<ul id="errorList">' ;
+		       // var ROOT ='https://1-dot-fanikiwaweb.appspot.com/_ah/api';
+		       var ROOT ='http://localhost:8888/_ah/api';   
+		       function init() {
+		        
+		        	try {
+		        	  
 		    // Parameters are APIName,APIVersion,CallBack function,API Root
 		    gapi.client.load('memberendpoint', 'v1', null, ROOT);
 	         
 		    // wire the submit button
-		    document.getElementById('btnUpdateProfileForm').onclick = function() {
+		    document.getElementById('btnUpdate').onclick = function() {
 		    UpdateProfile();
             }
             
             InitializeControls();
             
+	        	} catch(exception) {  
+	                console.log("Error : " + exception);
+	                errormsg += '<li>' + exception   + '</li>';
+	                DisplayException(errormsg); 
+	         }
           }
          
          // function that will execute the getMemberByEmail call
@@ -457,23 +467,29 @@
 	       		    return resp;       		
 	       		}       		  
 	       		else {
-	       			console.log(resp.code + " : " + resp.message);
-	       			alert("Error : " + resp.code + ":" + resp.message);
+	       			console.log(resp.code + " : " + resp.message); 
+	    			errormsg += '<li>' + resp.code + " : " + resp.message   + '</li>';
+	    			DisplayException(errormsg);
 	       		}
 		       	});
 	       	
 	       	} catch(exception) { 
-	           localStorage.errormessage = exception;
-	           console.log("Error : " + exception);
-	           window.location.href = "/Views/Shared/Error.html"; 
+	       		console.log("Error : " + exception);
+                errormsg += '<li>' + exception   + '</li>';
+                DisplayException(errormsg); 
 	      }
 		}	
 		
         // function that will execute the UpdateProfile call
         function UpdateProfile() {
-        
-       	try {
-        
+
+           	try {
+           	
+            errormsg='';
+            ClearException(); 
+            errormsg +=   '<ul id="errorList">' ;
+            var error_free=true;
+            
         	// retrieve the entries
         	var _Email = document.getElementById('txtEmail').value;
         	var _Surname = document.getElementById('txtSurname').value;
@@ -486,7 +502,39 @@
         	var _Gender = document.getElementById('cboGender').value;
         	var _InformBy = document.getElementById('cboInformBy').value;
         	
-            
+        	if(_Surname.length == 0)
+          	 {        		 
+               errormsg += '<li>' + " Surname cannot be null "   + '</li>'; 
+              	error_free = false;   
+          	 }
+          	 if(_OtherNames.length == 0)
+          	 {        		 
+          		errormsg += '<li>' + " OtherNames cannot be null "   + '</li>'; 
+              	error_free = false; 
+          	 }
+          	if(_Telephone.length == 0)
+         	 {        		 
+         		errormsg += '<li>' + " Telephone cannot be null "   + '</li>'; 
+             	error_free = false; 
+         	 }
+          	if(_NationalID.length == 0)
+        	 {        		 
+        		errormsg += '<li>' + " NationalID cannot be null "   + '</li>'; 
+            	error_free = false; 
+        	 }
+          	  
+          	 if (!error_free){
+    	         errormsg += "</ul>";
+    	    	 $("#error-display-div").html(errormsg); 
+    	         $("#error-display-div").removeClass('displaynone');
+    	         $("#error-display-div").addClass('displayblock');
+    	         $("#error-display-div").show();  
+    	         return;
+             }
+            else{
+    	        ClearException(); 
+             }
+          	  
         	// Build the Request Object
         	var member = {};
         	member.email = _Email;
@@ -509,23 +557,28 @@
         		
         		} 
         		else {
-        			console.log(resp.code + " : " + resp.message);
-        			alert("Error : " + resp.code + ":" + resp.message);
+        			console.log(resp.code + " : " + resp.message); 
+        			errormsg += '<li>' + resp.code + " : " + resp.message   + '</li>';
+        			DisplayException(errormsg);
         		} 
-        	});
-        	
+        	});        	
         	} catch(exception) { 
-	           localStorage.errormessage = exception;
-	           console.log("Error : " + exception);
-	           window.location.href = "/Views/Shared/Error.html"; 
+        		console.log("Error : " + exception);
+                errormsg += '<li>' + exception   + '</li>';
+                DisplayException(errormsg); 
 	      }
         }
         
         // function that will execute the InitializeControls call
         function InitializeControls() {
-        
-       	try {
-         
+
+           	try {
+           	
+            errormsg='';
+            ClearException(); 
+            errormsg +=   '<ul id="errorList">' ;
+            var error_free=true;
+            
         	// retrieve email from local storage
         	var email = localStorage.getItem('loggedinuser')  
         	// make the api call
@@ -544,10 +597,23 @@
         	 document.getElementById('cboInformBy').value = member.informBy;
         	
         	} catch(exception) { 
-	           localStorage.errormessage = exception;
-	           console.log("Error : " + exception);
-	           window.location.href = "/Views/Shared/Error.html"; 
+        		console.log("Error : " + exception);
+                errormsg += '<li>' + exception   + '</li>';
+                DisplayException(errormsg); 
 	      }
+        }
+        
+        function Clear(){
+ 	       $("#txtEmail").val("");
+ 	       $("#txtSurname").val("");
+ 	       $("#txtOtherNames").val("");
+ 	       $("#txtTelephone").val("");
+	       $("#txtNationalID").val("");
+	       $("#dtpDateOfBirth").val("");
+	       $("#txtRefferedBy").val("");
+ 	       $("#txtMaxRecordsToDisplay").val("");
+ 	       $("#cboGender").val("-1");
+ 	       $("#cboInformBy").val("-1"); 
         }
         
             function LogOff() { 
@@ -558,6 +624,23 @@
          	function ManageProfile() { 
          		window.location.href = "/Views/Account/EditProfile.html";  
             }
+         	
+         	 
+            function DisplayException(errormsg) {
+           	 
+    	      	errormsg += "</ul>";
+    	      		 
+    	       	 $("#error-display-div").html(errormsg); 
+    	         $("#error-display-div").removeClass('displaynone');
+    	         $("#error-display-div").addClass('displayblock');
+    	         $("#error-display-div").show();  
+          	  }
+
+	   	   	function ClearException() {
+	   	   		$('#errorList').remove();
+	   	   		$('#error-display-div').empty();
+	   	   	}
+       	   	
     </script>
 
 

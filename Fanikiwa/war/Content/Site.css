@@ -570,7 +570,7 @@ display: inline;
 cursor: pointer;
 }
 
-input, textarea, select 
+input, textarea, select, input[type="number"] , input[type="date"] 
 {
 border: 1px solid black; 
 border-radius: 5px; /* give a curvy edge */
@@ -1553,9 +1553,5 @@ padding: 1px 1px 1px 1px;
 margin: 1px 1px 1px 1px; 
 }
 
-/* Style for the Selectd Row
-----------------------------------------------------------*/
- .selectedrow {
-    background-color:cornflowerblue;
-}
+
 

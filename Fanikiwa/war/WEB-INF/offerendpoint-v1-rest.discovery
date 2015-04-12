@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/Y5I6t5_MdSiGsWeJMrkSe1fiJWE\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/a4I1Y5ETKn6uQgHCuuT1QitrcBM\"",
  "discoveryVersion": "v1",
  "id": "offerendpoint:v1",
  "name": "offerendpoint",
@@ -396,9 +396,6 @@
     "offerType": {
      "type": "string"
     },
-    "offerees": {
-     "type": "string"
-    },
     "partialPay": {
      "type": "boolean"
     },
@@ -414,50 +411,18 @@
     }
    }
   },
-  "OfferDTO": {
-   "id": "OfferDTO",
+  "OfferModel": {
+   "id": "OfferModel",
    "type": "object",
    "properties": {
-    "amount": {
-     "type": "number",
-     "format": "double"
-    },
-    "createdDate": {
-     "type": "string",
-     "format": "date-time"
-    },
-    "description": {
-     "type": "string"
-    },
-    "email": {
-     "type": "string"
-    },
-    "expiryDate": {
-     "type": "string",
-     "format": "date-time"
-    },
-    "interest": {
-     "type": "number",
-     "format": "double"
-    },
-    "offerType": {
-     "type": "string"
+    "offer": {
+     "$ref": "Offer"
     },
     "offerees": {
-     "type": "string"
-    },
-    "partialPay": {
-     "type": "boolean"
-    },
-    "publicOffer": {
-     "type": "boolean"
-    },
-    "status": {
-     "type": "string"
-    },
-    "term": {
-     "type": "integer",
-     "format": "int32"
+     "type": "array",
+     "items": {
+      "$ref": "Member"
+     }
     }
    }
   },
@@ -588,21 +553,6 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "makeOffer": {
-   "id": "offerendpoint.makeOffer",
-   "path": "MakeOffer",
-   "httpMethod": "POST",
-   "request": {
-    "$ref": "OfferDTO",
-    "parameterName": "resource"
-   },
-   "response": {
-    "$ref": "Offer"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
   "removeOffer": {
    "id": "offerendpoint.removeOffer",
    "path": "offer/{id}",
@@ -639,6 +589,21 @@
    },
    "response": {
     "$ref": "CollectionResponse_Offer"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "saveOffer": {
+   "id": "offerendpoint.saveOffer",
+   "path": "saveOffer",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "OfferModel",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "Offer"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -689,6 +654,27 @@
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
+  }
+ },
+ "resources": {
+  "offerEndpoint": {
+   "methods": {
+    "insertOffer": {
+     "id": "offerendpoint.offerEndpoint.insertOffer",
+     "path": "offer",
+     "httpMethod": "POST",
+     "request": {
+      "$ref": "Offer",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "Offer"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
   }
  }
 }

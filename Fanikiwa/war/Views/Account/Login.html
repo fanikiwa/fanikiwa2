@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 
 <html lang="en">
 
@@ -136,19 +136,15 @@
 
 
 	<script type="text/javascript">
-
-	 document.getElementById('btnTest').onclick = function() {
-     	window.location.href = "/Views/Test/SMSTest.html";
-           }
-     
-     document.getElementById('btnMpesaDeposit').onclick = function() {
-     	window.location.href = "/Views/Test/MpesaTest.html";
-           }
-     
-	 // var ROOT ='https://1-dot-fanikiwaweb.appspot.com/_ah/api';
-	  var ROOT ='http://localhost:8888/_ah/api';  
-      function init() {
-      
+  
+ 	var errormsg='';
+ 	errormsg +=   '<ul id="errorList">' ;
+       // var ROOT ='https://1-dot-fanikiwaweb.appspot.com/_ah/api';
+       var ROOT ='http://localhost:8888/_ah/api';   
+       function init() {
+        
+        	try {
+        	  
         // Parameters are APIName,APIVersion,CallBack function,API Root
         gapi.client.load('userprofileendpoint', 'v1', null, ROOT);
         		
@@ -163,37 +159,60 @@
         document.getElementById('btnMpesaDeposit').onclick = function() {
         	window.location.href = "/Views/Test/MpesaTest.html";
               }
+      } catch(exception) {  
+          console.log("Error : " + exception);
+          errormsg += '<li>' + exception   + '</li>';
+          DisplayException(errormsg); 
+   }
+ }
         
-        }
-     
         // Login function that will execute the Login call
         function Login() {
 
-        	try {
-			
+           	try {
+           	
+            errormsg='';
+            ClearException(); 
+            errormsg +=   '<ul id="errorList">' ;
+            var error_free = true;
+            
         	// Validate the entries
         	var _Email = document.getElementById('txtEmail').value;
         	var _Password = document.getElementById('txtPassword').value;  
         	
         	if(_Email.length == 0)
           	 {        		 
-          		 alert("Email cannot be null");
-          		 return;
+        		errormsg += '<li>' + " Email cannot be null "   + '</li>'; 
+              	error_free = false;    
           	 }
           	 if(_Password.length == 0)
           	 {        		 
-          		 alert("Password cannot be null");
-          		 return;
+	             errormsg += '<li>' + " Password cannot be null "   + '</li>'; 
+	           	 error_free = false;   
           	 } 
           	 
+          	 if (!error_free){
+    	         errormsg += "</ul>";
+    	    	 $("#error-display-div").html(errormsg); 
+    	         $("#error-display-div").removeClass('displaynone');
+    	         $("#error-display-div").addClass('displayblock');
+    	         $("#error-display-div").show();  
+    	         return;
+             }
+            else{
+    	        ClearException(); 
+             }
+          	 
         	// Build the Request Object
-        	var requestData = {};
-        	requestData.userId = _Email;
-        	requestData.pwd = _Password;
+        	var login = {};
+        	login.userId = _Email;
+        	login.pwd = _Password;
  
-        	gapi.client.userprofileendpoint.login(requestData).execute(function(resp) {
+        	gapi.client.userprofileendpoint.login(login).execute(function(resp) {
+        		
         		if (!resp.code) {
         			console.log(resp.userId );
+        			
 			 if (resp.userId == 'undefined') {
 				 document.getElementById('txtEmail').value = '';
 				 document.getElementById('txtPassword').value = ''; 
@@ -201,27 +220,41 @@
 		    	 return;
 			 }
         			 
-        		// Save resp (userprofile globally)
-        		// Store it in the local storage
+        		// Save resp (userprofile) globally, Store it in the local
+				// storage
                 localStorage.loggedinuser = resp.userId;
  
-        		 window.location.href = "/Views/Offers/ListMyOffers.html";
+        		 window.location.href = "/Views/Home/Index.html";
         		
         		} 
         		else { 
-        		localStorage.clear();
-        		console.log(resp.code + " : " + resp.message);
-        		alert("Error : " + resp.code + ":" + resp.message);
+        			console.log(resp.code + " : " + resp.message); 
+        			errormsg += '<li>' + resp.code + " : " + resp.message   + '</li>';
+        			DisplayException(errormsg);
         		}         		
-        	}); 
-        	
+        	});         	
         	} catch(exception) { 
-                localStorage.errormessage = exception;
-                console.log("Error : " + exception);
-                window.location.href = "/Views/Shared/Error.html"; 
+        		console.log("Error : " + exception);
+        		errormsg += '<li>' + exception   + '</li>';
+                DisplayException(errormsg);
            }
        }
        
+        function DisplayException(errormsg) {
+       	 
+	      	errormsg += "</ul>";
+	      		 
+	       	 $("#error-display-div").html(errormsg); 
+	         $("#error-display-div").removeClass('displaynone');
+	         $("#error-display-div").addClass('displayblock');
+	         $("#error-display-div").show();  
+      	  }
+
+	   	   	function ClearException() {
+	   	   		$('#errorList').remove();
+	   	   		$('#error-display-div').empty();
+	   	   	}
+   	   	
     </script>
 
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>

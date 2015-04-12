@@ -1,7 +1,10 @@
 package com.sp.fanikiwa.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.google.appengine.api.datastore.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -27,8 +30,6 @@ public class Offer {
 	private Date createdDate;
  
 	private Date expiryDate;
- 
-	private String offerees;
  
 	private String offerType;
  
@@ -96,14 +97,6 @@ public class Offer {
 
 	public void setMember(Member member) {
 		this.member = Ref.create(member);
-	}
-
-	public String getOfferees() {
-		return this.offerees;
-	}
-
-	public void setOfferees(String offerees) {
-		this.offerees = offerees;
 	}
 
 	public String getOfferType() {

@@ -68,6 +68,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "coaendpoint.removeCoa" : {
+      "path" : "coa/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.CoaEndpoint.removeCoa",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "coaendpoint.getCoaByID" : {
       "path" : "coa/{id}",
       "httpMethod" : "GET",
@@ -103,27 +124,6 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "coaendpoint.removeCoa" : {
-      "path" : "coa/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.CoaEndpoint.removeCoa",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
       }
     }
   },
@@ -172,6 +172,8 @@
           "$ref" : "CollectionResponse_Coa"
         }
       },
+      "com.sp.fanikiwa.api.CoaEndpoint.removeCoa" : {
+      },
       "com.sp.fanikiwa.api.CoaEndpoint.getCoaByID" : {
         "response" : {
           "$ref" : "Coa"
@@ -184,8 +186,6 @@
         "response" : {
           "$ref" : "Coa"
         }
-      },
-      "com.sp.fanikiwa.api.CoaEndpoint.removeCoa" : {
       }
     }
   }

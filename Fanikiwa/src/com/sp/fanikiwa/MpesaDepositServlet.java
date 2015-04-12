@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.sp.fanikiwa.Enums.FanikiwaMessageType;
 import com.sp.fanikiwa.business.SMS.FanikiwaMessage;
 import com.sp.fanikiwa.business.SMS.FanikiwaMessageFactory;
@@ -95,19 +95,20 @@ public class MpesaDepositServlet extends HttpServlet {
 		// 1. get received JSON data from request
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				request.getInputStream()));
-		String json = "";
-		if (br != null) {
-			json = br.readLine();
-		}
+//		String json = "";
+//		if (br != null) {
+//			json = br.readLine();
+//		}
 
 		// 2. initiate jackson mapper
-		ObjectMapper mapper = new ObjectMapper();
+		//ObjectMapper mapper = new ObjectMapper();
+		Gson gson = new Gson();
+		MpesaDepositMessage msg = gson.fromJson(br, MpesaDepositMessage.class);
 
 		// 3. Convert received JSON to MpesaDepositMessage
-		MpesaDepositMessage msg = mapper.readValue(json,
-				MpesaDepositMessage.class);
+//		MpesaDepositMessage msg = mapper.readValue(json,MpesaDepositMessage.class);
 
-		msg.setBody(json);
+//		msg.setBody(json);
 		msg.setMessageDate(new Date());
 		msg.setFanikiwaMessageType(FanikiwaMessageType.MpesaDepositMessage);
 		msg.setStatus("NEW");

@@ -1,13 +1,19 @@
 package com.sp.fanikiwa;
 
 import java.io.IOException; 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties; 
 
 import javax.mail.MessagingException;
 import javax.mail.Session; 
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage; 
 import javax.servlet.http.*; 
 
+import com.google.api.server.spi.response.ConflictException;
+import com.google.api.server.spi.response.NotFoundException;
+import com.sp.fanikiwa.api.InformdbEndpoint;
 import com.sp.fanikiwa.entity.Informdb;
 
 public class MailHandlerServlet extends HttpServlet { 
@@ -27,13 +33,26 @@ public class MailHandlerServlet extends HttpServlet {
 			mail.setMessageDate(message.getReceivedDate());
 			mail.setStatus("New");
 			
-//			InformDbEndpoint idep = new InformDbEndpoint();
-//			idep.insertInformDb(mail);
+			InformdbEndpoint idep = new InformdbEndpoint();
+			idep.insertInformdb(mail);
 			
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+			Transport.send(message);
+	        System.out.println("Successfull Delivery.");
+			
+		 
+    } catch (AddressException e) {
+        e.printStackTrace();
+    } catch (MessagingException e) {
+        e.printStackTrace();
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    } catch (NotFoundException e) { 
+		e.printStackTrace();
+	} catch (ConflictException e) { 
+		e.printStackTrace();
+	}
     }
+     
+    
+    
 }

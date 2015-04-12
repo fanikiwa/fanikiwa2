@@ -27,6 +27,43 @@
   "ownerName" : "sp.com",
   "packagePath" : "fanikiwa.entity",
   "methods" : {
+    "diaryprogramcontrolendpoint.updateDiaryprogramcontrol" : {
+      "path" : "diaryprogramcontrol",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.updateDiaryprogramcontrol",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "diaryprogramcontrolendpoint.removeDiaryprogramcontrol" : {
+      "path" : "diaryprogramcontrol/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.removeDiaryprogramcontrol",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "diaryprogramcontrolendpoint.listDiaryprogramcontrol" : {
       "path" : "diaryprogramcontrol",
       "httpMethod" : "GET",
@@ -67,62 +104,10 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "diaryprogramcontrolendpoint.updateDiaryprogramcontrol" : {
-      "path" : "diaryprogramcontrol",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.updateDiaryprogramcontrol",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "diaryprogramcontrolendpoint.removeDiaryprogramcontrol" : {
-      "path" : "diaryprogramcontrol/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.removeDiaryprogramcontrol",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
     }
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Diaryprogramcontrol" : {
-        "id" : "CollectionResponse_Diaryprogramcontrol",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Diaryprogramcontrol"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "Diaryprogramcontrol" : {
         "id" : "Diaryprogramcontrol",
         "type" : "object",
@@ -140,9 +125,34 @@
             "format" : "date-time"
           }
         }
+      },
+      "CollectionResponse_Diaryprogramcontrol" : {
+        "id" : "CollectionResponse_Diaryprogramcontrol",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Diaryprogramcontrol"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
+      "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.updateDiaryprogramcontrol" : {
+        "request" : {
+          "$ref" : "Diaryprogramcontrol"
+        },
+        "response" : {
+          "$ref" : "Diaryprogramcontrol"
+        }
+      },
+      "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.removeDiaryprogramcontrol" : {
+      },
       "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.listDiaryprogramcontrol" : {
         "response" : {
           "$ref" : "CollectionResponse_Diaryprogramcontrol"
@@ -155,16 +165,6 @@
         "response" : {
           "$ref" : "Diaryprogramcontrol"
         }
-      },
-      "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.updateDiaryprogramcontrol" : {
-        "request" : {
-          "$ref" : "Diaryprogramcontrol"
-        },
-        "response" : {
-          "$ref" : "Diaryprogramcontrol"
-        }
-      },
-      "com.sp.fanikiwa.api.DiaryprogramcontrolEndpoint.removeDiaryprogramcontrol" : {
       }
     }
   }

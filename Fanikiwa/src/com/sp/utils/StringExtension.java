@@ -21,4 +21,25 @@ public  class StringExtension {
 //        return expr.evaluate(context).toString();
 		return format; //placeholder for now
     }
+	
+	//parses objects from string by calling the object's constructor
+	public static <T> T parseObjectFromString(String s, Class<T> clazz) throws Exception {
+	    return clazz.getConstructor(new Class[] {String.class }).newInstance(s);
+	}
+	
+	public static boolean isAlphaNumeric(String s){
+	    String pattern= "^[a-zA-Z0-9]*$";
+	        if(s.matches(pattern)){
+	            return true;
+	        }
+	        return false;   
+	}
+	public static boolean isKenyaMobileNumber(String s)
+	{
+		return s.startsWith("0")  || s.startsWith("+254"); 
+	}
+	public static boolean isNumeric(String str)
+	{
+	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
 }

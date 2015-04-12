@@ -15,6 +15,7 @@ import com.sp.fanikiwa.api.AccountEndpoint;
 import com.sp.fanikiwa.api.LoanEndpoint;
 import com.sp.fanikiwa.api.MemberEndpoint;
 import com.sp.fanikiwa.api.OfferEndpoint;
+import com.sp.fanikiwa.api.OfferReceipientEndpoint;
 import com.sp.fanikiwa.api.STOEndpoint;
 import com.sp.fanikiwa.business.financialtransactions.GenericTransaction;
 import com.sp.fanikiwa.business.financialtransactions.NarrativeFormat;
@@ -156,11 +157,8 @@ public class AcceptOfferComponent {
 	}
 
 	private boolean PrivateOfferred(Offer offer, Member member) {
-		if (offer.getOfferees().contains(member.getEmail()))
-			return true;
-		if (offer.getOfferees().contains(member.getTelephone()))
-			return true;
-		return false;
+		OfferReceipientEndpoint oep = new OfferReceipientEndpoint();
+		return oep.isOfferAvaiable(offer,  member);
 	}
 
 	private void CreateLoan(Member borrower, Member lender, Offer offer)
